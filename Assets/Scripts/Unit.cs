@@ -1,46 +1,48 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private float _maxHealth;
 
+    public UnityEvent HealthChanged;
+    public UnityEvent MaxHealthChanged;
     public float MaxHealth { get; private set; }
     public float Health { get; private set; }
 
     private void Start()
     {
-        const float MaxHealthStartValue = 100;
+        MaxHealth = _maxHealth;
+        Health = _maxHealth;
 
-        MaxHealth = MaxHealthStartValue;
-        Health = MaxHealthStartValue;
-        _healthBar.SetMaxValue(MaxHealth);
-        _healthBar.SetValue(Health, true);
+        if (HealthChanged == null)
+            HealthChanged = new UnityEvent();
+
+        if (MaxHealthChanged == null)
+            MaxHealthChanged = new UnityEvent();
     }
 
     public void GetDamaged(float damageValue)
     {
         Health -= damageValue;
 
-        if (Health < 0)
-            Health = 0;
+        Health = Mathf.Clamp(Health, 0, MaxHealth);
 
-        ChangeHealthBarValues();
+        HealthChanged.Invoke();
     }
 
-    public void GetHealed()
+    public void GetHealed(float healValue)
     {
-        const float HealValue = 10;
+        Health += healValue;
 
-        Health += HealValue;
+        Health = Mathf.Clamp(Health, 0, MaxHealth);
 
-        if (Health > MaxHealth)
-            Health = MaxHealth;
-
-        ChangeHealthBarValues();
+        HealthChanged.Invoke();
     }
 
-    private void ChangeHealthBarValues()
+    public void ChangeMaxHealth(float maxHealthValue)
     {
-        _healthBar.SetValue(Health);
+        MaxHealth = maxHealthValue;
+        MaxHealthChanged.Invoke();
     }
 }

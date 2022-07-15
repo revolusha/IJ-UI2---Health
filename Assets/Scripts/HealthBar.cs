@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,46 +7,41 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private float _slideSpeed = 3;
+    [SerializeField] private Unit _unit;
 
+    private Coroutine _moving;
     private Slider _slider;
     private float _targetValue;
     private float _adaptiveSlideSpeed;
-    private bool _isSliding;
 
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-        _isSliding = false;
     }
 
-    private void Update()
+    private void Start()
     {
-        if (_isSliding)
-        {
-            _slider.value = Mathf.MoveTowards(_slider.value, _targetValue, Time.deltaTime * _adaptiveSlideSpeed);
-
-            if (_slider.value == _targetValue)
-                _isSliding = false;
-        }
+        UpdateMaxValue();
+        UpdateValue(true);
     }
 
-    public void SetValue(float healthValue, bool isFast = false)
+    public void UpdateValue(bool isFast = false)
     {
         if (isFast)
         {
-            _slider.value = healthValue;
+            _slider.value = _unit.Health;
         }
         else
         {
-            _targetValue = healthValue;
+            _targetValue = _unit.Health;
             CalculateSpeed();
-             _isSliding = true;
+            RestartCoroutine(_moving, MoveBarValue());
         }
     }
 
-    public void SetMaxValue(float maxHealthValue)
+    public void UpdateMaxValue()
     {
-        _slider.maxValue = maxHealthValue;
+        _slider.maxValue = _unit.MaxHealth;
     }
 
     private void CalculateSpeed()
@@ -55,5 +51,22 @@ public class HealthBar : MonoBehaviour
         float valueBetwhen = Mathf.Abs(_slider.value - _targetValue);
 
         _adaptiveSlideSpeed = valueBetwhen / Divisor * _slideSpeed;
+    }
+
+    private void RestartCoroutine(Coroutine coroutine, IEnumerator enumerator)
+    {
+        if (coroutine != null)
+            StopCoroutine(coroutine);
+
+        coroutine = StartCoroutine(enumerator);
+    }
+
+    private IEnumerator MoveBarValue()
+    {
+        while (_slider.value != _targetValue)
+        {
+            yield return new WaitForEndOfFrame();
+            _slider.value = Mathf.MoveTowards(_slider.value, _targetValue, Time.deltaTime * _adaptiveSlideSpeed);
+        }
     }
 }

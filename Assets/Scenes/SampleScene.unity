@@ -220,12 +220,12 @@ MonoBehaviour:
       - m_Target: {fileID: 84847827}
         m_TargetAssemblyTypeName: Unit, Assembly-CSharp
         m_MethodName: GetHealed
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1108,6 +1108,70 @@ PrefabInstance:
       propertyPath: _healthBar
       value: 
       objectReference: {fileID: 1474763402}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: _maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1474763402}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1474763402}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateValue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateMaxValue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HealthBar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HealthBar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851913791520446786, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961452621303679388, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
+      propertyPath: _unit
+      value: 
+      objectReference: {fileID: 84847827}
     - target: {fileID: 3961452621303679388, guid: 1870cc20e01cd0f449a0875eadd6394d, type: 3}
       propertyPath: _slideSpeed
       value: 20
