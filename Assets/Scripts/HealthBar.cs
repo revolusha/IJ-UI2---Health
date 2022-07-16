@@ -30,13 +30,13 @@ public class HealthBar : MonoBehaviour
         _unit.OnHealthChanged -= UpdateValue;
     }
 
-    public void UpdateValueFast()
+    private void UpdateValueFast()
     {
         _slider.maxValue = _unit.MaxHealth;
         _slider.value = _unit.Health;
     }
 
-    public void UpdateValue()
+    private void UpdateValue()
     {
         _targetValue = _unit.Health;
         CalculateSpeed();
