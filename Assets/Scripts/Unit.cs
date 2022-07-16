@@ -4,22 +4,24 @@ using UnityEngine.Events;
 public class Unit : MonoBehaviour
 {
     [SerializeField] private float _maxHealth;
+    [SerializeField] private UnityEvent _healthChanged;
 
-    public UnityEvent HealthChanged;
-    public UnityEvent MaxHealthChanged;
     public float MaxHealth { get; private set; }
     public float Health { get; private set; }
+
+    public event UnityAction OnHealthChanged
+    {
+        add => _healthChanged.AddListener(value);
+        remove => _healthChanged.RemoveListener(value);
+    }
 
     private void Start()
     {
         MaxHealth = _maxHealth;
         Health = _maxHealth;
 
-        if (HealthChanged == null)
-            HealthChanged = new UnityEvent();
-
-        if (MaxHealthChanged == null)
-            MaxHealthChanged = new UnityEvent();
+        if (_healthChanged == null)
+            _healthChanged = new UnityEvent();
     }
 
     public void GetDamaged(float damageValue)
@@ -28,7 +30,7 @@ public class Unit : MonoBehaviour
 
         Health = Mathf.Clamp(Health, 0, MaxHealth);
 
-        HealthChanged.Invoke();
+        _healthChanged?.Invoke();
     }
 
     public void GetHealed(float healValue)
@@ -37,12 +39,12 @@ public class Unit : MonoBehaviour
 
         Health = Mathf.Clamp(Health, 0, MaxHealth);
 
-        HealthChanged.Invoke();
+        _healthChanged?.Invoke();
     }
 
     public void ChangeMaxHealth(float maxHealthValue)
     {
         MaxHealth = maxHealthValue;
-        MaxHealthChanged.Invoke();
+        _healthChanged?.Invoke();
     }
 }

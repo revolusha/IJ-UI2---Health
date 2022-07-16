@@ -14,34 +14,33 @@ public class HealthBar : MonoBehaviour
     private float _targetValue;
     private float _adaptiveSlideSpeed;
 
-    private void Awake()
+    private void OnEnable()
     {
         _slider = GetComponent<Slider>();
+        _unit.OnHealthChanged += UpdateValue;
     }
 
     private void Start()
     {
-        UpdateMaxValue();
-        UpdateValue(true);
+        UpdateValueFast();
     }
 
-    public void UpdateValue(bool isFast = false)
+    private void OnDisable()
     {
-        if (isFast)
-        {
-            _slider.value = _unit.Health;
-        }
-        else
-        {
-            _targetValue = _unit.Health;
-            CalculateSpeed();
-            RestartCoroutine(_moving, MoveBarValue());
-        }
+        _unit.OnHealthChanged -= UpdateValue;
     }
 
-    public void UpdateMaxValue()
+    public void UpdateValueFast()
     {
         _slider.maxValue = _unit.MaxHealth;
+        _slider.value = _unit.Health;
+    }
+
+    public void UpdateValue()
+    {
+        _targetValue = _unit.Health;
+        CalculateSpeed();
+        RestartCoroutine(ref _moving, MoveBarValue());
     }
 
     private void CalculateSpeed()
@@ -53,7 +52,7 @@ public class HealthBar : MonoBehaviour
         _adaptiveSlideSpeed = valueBetwhen / Divisor * _slideSpeed;
     }
 
-    private void RestartCoroutine(Coroutine coroutine, IEnumerator enumerator)
+    private void RestartCoroutine(ref Coroutine coroutine, IEnumerator enumerator)
     {
         if (coroutine != null)
             StopCoroutine(coroutine);
